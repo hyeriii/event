@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Server</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="icon" href="data:,">
+    <script type="text/javascript"></script>
+    <script>
+
+    </script>
+
+
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid gray;
+        }
+    </style>
+
+    <h1>Web Server 이벤트 생성</h1>
+
+</head>
+
+<body>
+    <button onclick="add_row()"> 이벤트 추가 </button>
+
+
+    <hr>
+    <table>
+
+        <thead>
+
+        <th>내용</th>
+        <th>시간</th>
+        </thead>
+
+        <tbody id="my-tbody"></tbody>
+
+    </table>
+
+    <script>
+
+
+
+        var aaa = setInterval(function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var x = (new Date()).getTime(),
+                        y = this.responseText;
+
+                    var my_tbody = document.getElementById('my-tbody');
+                    var row = my_tbody.insertRow(0);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = y;
+                    cell2.innerHTML = new Date().toLocaleTimeString();
+                }
+            };
+            xhttp.open("GET", "/event_up", true);
+            xhttp.send();
+        }, 5000);
+    </script>
+</html>
